@@ -4,7 +4,8 @@ angular
 
     chrome.storage.sync.get('queries', function(value) {
       $scope.$apply(function() {
-        $scope.queries = value.queries || [{ }];
+        $scope.queries = value.queries || [];
+        if ($scope.queries.length === 0) $scope.queries.push({ });
       });
     });
 

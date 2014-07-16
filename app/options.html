@@ -1,13 +1,18 @@
 <!doctype html>
 <html ng-app="App">
 <head>
-  <!-- <title>leboncoin-watcher</title> -->
+  <title>leboncoin-watcher</title>
+  <meta charset="utf-8">
   <link rel="stylesheet" href="options.css">
   <script src="angular.js"></script>
   <script src="angular-animate.js"></script>
   <script src="options.js"></script>
 </head>
 <body>
+  <header>
+    <h1>Le chineur <small>Options</small></h1>
+    <p>Ajouter une URL de recherche pour commencer à recevoir des notifications.</p>
+  </header>
   <main ng-controller="optionsCtrl">
     <ul>
       <fieldset ng-repeat="query in queries" class="slide">

@@ -94,6 +94,6 @@
 
   };
 
-  backgroundTask.start();
+  // backgroundTask.start();
 
 })(jQuery);

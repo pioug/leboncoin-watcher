@@ -7,6 +7,7 @@
 
 a {
   cursor: pointer;
+  pointer-events: all;
 }
 
 fieldset {
@@ -21,7 +22,9 @@ input {
   border: 1px solid #bdbdbd;
   box-sizing: border-box;
   margin: 0;
-  padding: 1em;
+  padding: .8em;
+  font-size: 1em;
+  pointer-events: all;
   width: 100%;
 }
 
@@ -31,9 +34,9 @@ input:focus {
 }
 
 ul {
-  min-width: 50vw;
-  padding: 0;
   margin: 0;
+  min-width: 80vw;
+  padding: 0;
 }
 
 body {
@@ -41,13 +44,28 @@ body {
   align-items: center;
   background-color: #e0e0e0;
   display: flex;
+  flex-direction: column;
   font-family: 'Roboto';
   height: 100vh;
   justify-content: center;
   margin: 0;
+  pointer-events: none;
   text-align: center;
   user-select: none;
   width: 100vw;
+}
+
+header {
+  margin-bottom: 2em;
+}
+
+h1 {
+  font-weight: 900;
+  margin-top: 0;
+}
+
+h1 small {
+  font-weight: 300;
 }
 
 .add {
@@ -57,7 +75,7 @@ body {
   color: #fff;
   display: inline-block;
   font-size: 2em;
-  font-weight: lighter;
+  font-weight: 300;
   height: 2em;
   line-height: 2em;
   margin: .5em;
@@ -79,8 +97,9 @@ input,
 
 .delete {
   color: #b0120a;
-  font-weight: bold;
-  line-height: 2.2em;
+  font-size: 1.4em;
+  font-weight: 900;
+  line-height: 2em;
   margin: auto;
   opacity: 0;
   padding: 0 1em;
@@ -108,7 +127,7 @@ input:focus + .delete:hover,
 
 .slide {
   height: 3.4em;
-  transition: .4s ease-out all;
+  transition: .3s ease-out all;
 }
 
 .slide.ng-enter {

@@ -1,5 +1,10 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,300;900);
 
+::selection {
+  background: #e91e63;
+  color: #fff;
+}
+
 a {
   cursor: pointer;
 }
@@ -32,6 +37,7 @@ ul {
 }
 
 body {
+  -webkit-user-select: none;
   align-items: center;
   background-color: #e0e0e0;
   display: flex;
@@ -40,6 +46,7 @@ body {
   justify-content: center;
   margin: 0;
   text-align: center;
+  user-select: none;
   width: 100vw;
 }
 

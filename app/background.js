@@ -24,7 +24,7 @@
       queries.forEach(function(query) {
         setInterval(function() {
           $.get(query.url).success(backgroundTask.scrapResults);
-        }, query.polling);
+        }, 36e5);
       });
     },
 

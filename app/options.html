@@ -1,22 +1,21 @@
 <!doctype html>
+<html ng-app="App">
 <head>
   <title>leboncoin-watcher</title>
+  <link rel="stylesheet" href="options.css">
   <script src="angular.js"></script>
+  <script src="angular-animate.js"></script>
   <script src="options.js"></script>
 </head>
-<body ng-app>
+<body>
   <div ng-controller="optionsCtrl">
     <ul>
-      <li ng-repeat="query in queries">
-        <input ng-model="query.url">
-        <select ng-model="query.polling">
-          <option value="5000">5 secondes</option>
-          <option value="1800000">30 minutes</option>
-          <option value="3600000">1 heure</option>
-          <option value="7200000">2 heures</option>
-        </select>
-      </li>
+      <fieldset ng-repeat="query in queries" class="slide">
+        <input ng-model="query.url" placeholder="http://">
+        <a class="delete" ng-click="deleteSearch($index)">x</a>
+      </fieldset>
     </ul>
-    <input type="button" ng-click="addSearch()" value="Ajouter">
-  </div>
+    <a class="add" ng-click="addSearch()">+</a>
+  </main>
 </body>
+</html>

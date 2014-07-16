@@ -53,7 +53,7 @@ body {
 .add {
   background-color: #78909c;
   border-radius: 50%;
-  box-shadow: 0 2px 2px #757575;
+  box-shadow: 0 2px 2px 0px #757575;
   color: #fff;
   display: inline-block;
   font-size: 2em;
@@ -68,7 +68,7 @@ body {
 
 .add:active {
   background-color: #455a64;
-  box-shadow: 0 1px 1px #757575;
+  box-shadow: 0 1px 1px 0 #757575;
   top: 1px;
 }
 
@@ -91,10 +91,19 @@ input,
   visibility: hidden;
 }
 
-input:focus + .delete {
-  opacity: 1;
+input:focus + .delete,
+.delete:active {
   transform: translateX(0);
   visibility: visible;
+}
+
+input:focus + .delete {
+  opacity: .4;
+}
+
+input:focus + .delete:hover,
+.delete:active {
+  opacity: 1;
 }
 
 .slide {

@@ -4,10 +4,27 @@
   window.backgroundTask = {
 
     results: {},
+    pollingTasks: [],
 
     start: function() {
-      this.getQueries()
-        .then(this.executeQueries);
+      var that = this;
+      this.getQueries().then(this.executeQueries.bind(this));
+      var restart = _.debounce(function(changes, areaName) {
+        if (changes.queries) that.restart();
+      }, 5e3)
+      chrome.storage.onChanged.addListener(restart);
+    },
+
+    stop: function() {
+      this.pollingTasks.map(function(task) {
+        clearInterval(task);
+      });
+      this.pollingTasks = [];
+    },
+
+    restart: function() {
+      this.stop();
+      this.start();
     },
 
     getQueries: function() {
@@ -21,10 +38,11 @@
     },
 
     executeQueries: function(queries) {
+      var that = this;
       queries.forEach(function(query) {
-        setInterval(function() {
+        that.pollingTasks.push(setInterval(function() {
           $.get(query.url).success(backgroundTask.scrapResults);
-        }, 36e5);
+        }, 36e5));
       });
     },
 
@@ -94,6 +112,6 @@
 
   };
 
-  // backgroundTask.start();
+  backgroundTask.start();
 
 })(jQuery);

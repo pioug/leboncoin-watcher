@@ -1,8 +1,14 @@
 <!doctype html>
-<html>
+<html ng-app="App">
   <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="popup.css">
+    <script src="angular.js"></script>
+    <script src="angular-animate.js"></script>
+    <script src="popup.js"></script>
   </head>
-  <body>
-    Test
+  <body ng-controller="popupCtrl">
+    <header></header>
+    <main>{{ 1 + 1 }}</main>
   </body>
 </html>

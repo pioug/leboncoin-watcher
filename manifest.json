@@ -3,13 +3,17 @@
   "version": "0.0.1",
   "manifest_version": 2,
   "permissions": [
-    "http://*/",
-    "storage",
-    "notifications"
+  "http://*/",
+  "storage",
+  "notifications"
   ],
   "options_page": "app/options.html",
   "background": {
     "page": "app/background.html",
     "persistent": true
+  },
+  "browser_action": {
+    "default_title": "Le chineur",
+    "default_popup": "app/popup.html"
   }
 }

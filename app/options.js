@@ -2,7 +2,7 @@ angular
   .module('App',['ngAnimate'])
   .controller('optionsCtrl', ['$scope', function($scope) {
 
-    chrome.storage.sync.get('queries', function(value) {
+    chrome.storage.local.get('queries', function(value) {
       $scope.$apply(function() {
         $scope.queries = value.queries || [];
         if ($scope.queries.length === 0) $scope.queries.push({ });
@@ -10,7 +10,7 @@ angular
     });
 
     $scope.$watch('queries', function(newValue) {
-      chrome.storage.sync.set({ queries: angular.copy(newValue) });
+      chrome.storage.local.set({ queries: angular.copy(newValue) });
     }, true);
 
     $scope.addSearch = function() {

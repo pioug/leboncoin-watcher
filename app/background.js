@@ -30,7 +30,7 @@
     getQueries: function() {
       var that = this;
       return new Promise(function(resolve, reject) {
-        chrome.storage.sync.get(['results', 'queries'], function(data) {
+        chrome.storage.local.get(['results', 'queries'], function(data) {
           that.results = data.results || {};
           resolve(data.queries);
         });
@@ -88,10 +88,11 @@
         });
       }
       this.results[query] = results;
+      this.saveResults();
     },
 
-    saveResults: function(query, results) {
-      chrome.storage.sync.set({ query: results });
+    saveResults: function() {
+      chrome.storage.local.set({ results: this.results });
     },
 
     displayNotification: function(data) {

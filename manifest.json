@@ -9,7 +9,11 @@
   ],
   "options_page": "app/options.html",
   "background": {
-    "page": "app/background.html",
+    "scripts": [
+      "app/jquery.js",
+      "app/lodash.js",
+      "app/background.js"
+    ],
     "persistent": true
   },
   "browser_action": {

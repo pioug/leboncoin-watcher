@@ -3,12 +3,22 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="popup.css">
+    <script src="lodash.js"></script>
     <script src="angular.js"></script>
     <script src="angular-animate.js"></script>
     <script src="popup.js"></script>
   </head>
   <body ng-controller="popupCtrl">
-    <header></header>
-    <main>{{ 1 + 1 }}</main>
+    <header>
+      <a ng-class="{ active: key === current }" ng-repeat="(key, data) in allResults" ng-click="seeResults(key)">{{ key | beautify }}</a>
+    </header>
+    <main>
+      <ul>
+        <li ng-click="seeItem(item)" ng-repeat="item in seenResults | limitTo: 5">
+          <p>{{ item.title }}</p>
+          <p class="date"><small>{{ item.date }}</small></h2>
+        </li>
+      </ul>
+    </main>
   </body>
 </html>

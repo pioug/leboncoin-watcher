@@ -74,41 +74,13 @@
 
         results.push(article);
       });
-      backgroundTask.compareResults(this.url, results);
+      backgroundTask.saveResults(this.url, results);
     },
 
-    compareResults: function(query, results) {
-      var that = this;
-      if (this.results.hasOwnProperty(query)) {
-        results.map(function(result) {
-          var isNew = !_.find(that.results[query], { url: result.url });
-          if (isNew) {
-            that.displayNotification(result);
-          }
-        });
-      }
+    saveResults: function(query, results) {
       this.results[query] = results;
       this.saveResults();
-    },
-
-    saveResults: function() {
       chrome.storage.local.set({ results: this.results });
-    },
-
-    displayNotification: function(data) {
-      var options = {
-        type: 'basic',
-        title: data.title,
-        message: data.price || '',
-        iconUrl:  data.imageSrc || 'icon512.png'
-      };
-      var d = new Date().getTime().toString();
-      var notification = chrome.notifications.create(d, options, function() { });
-      chrome.notifications.onClicked.addListener(function (id) {
-        if (id === d) {
-          window.open(data.url);
-        }
-      });
     }
 
   };

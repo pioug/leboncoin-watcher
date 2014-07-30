@@ -6,14 +6,15 @@ angular
       $scope.$apply(function() {
         var firstKey = _.keys(value.results)[0]
         $scope.allResults = value.results || [];
-        $scope.seenResults = value.results[firstKey];
-        $scope.current = firstKey;
+        $scope.current = localStorage.previousKey || firstKey;
+        $scope.seenResults = $scope.allResults[$scope.current];
       });
     });
 
     $scope.seeResults = function(key) {
       $scope.current = key;
       $scope.seenResults = $scope.allResults[key];
+      localStorage.previousKey = key;
     };
 
     $scope.seeItem = function(item) {
@@ -25,7 +26,8 @@ angular
 
     return function(input) {
       var matches = input.match(/q=([^&]*)/);
-      return matches[1];
+      if (matches) return matches[1];
+      return input.split('/')[5].replace(/_/g, " ");
     }
 
   });

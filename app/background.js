@@ -1,25 +1,31 @@
 (function($) {
   'use strict';
 
-  window.backgroundTask = {
+  var backgroundTask = {
 
     results: {},
-    pollingTasks: [],
+    queries: [],
+    pollingTask: null,
 
     start: function() {
-      var that = this;
-      this.getQueries().then(this.executeQueries.bind(this));
-      var restart = _.debounce(function(changes, areaName) {
-        if (changes.queries) that.restart();
-      }, 5e3)
+      this.getQueries().then(this.pollResults.bind(this));
+      var restart = function(changes, areaName) {
+        if (changes.queries) this.restart();
+      }.bind(this);
+      var clean = function(changes, areaName) {
+        if (!changes.queries) return;
+        changes.queries.oldValue.map(function(query) {
+          delete this.results[query.url];
+        }.bind(this));
+        chrome.storage.local.set({ results: this.results });
+      }.bind(this);
+      chrome.storage.onChanged.addListener(clean);
       chrome.storage.onChanged.addListener(restart);
     },
 
     stop: function() {
-      this.pollingTasks.map(function(task) {
-        clearInterval(task);
-      });
-      this.pollingTasks = [];
+      clearInterval(this.pollingTask);
+      this.pollingTask = null;
     },
 
     restart: function() {
@@ -28,25 +34,26 @@
     },
 
     getQueries: function() {
-      var that = this;
       return new Promise(function(resolve, reject) {
-        chrome.storage.local.get(['results', 'queries'], function(data) {
-          that.results = data.results || {};
-          resolve(data.queries);
-        });
-      });
+        chrome.storage.local.get('queries', function(data) {
+          this.queries = data.queries || [];
+          resolve();
+        }.bind(this));
+      }.bind(this));
     },
 
-    executeQueries: function(queries) {
-      var that = this;
-      queries.forEach(function(query) {
-        that.pollingTasks.push(setInterval(function() {
-          $.get(query.url).success(backgroundTask.scrapResults);
-        }, 36e5));
-      });
+    pollResults: function() {
+      this.executeQueries();
+      this.pollingTask = setInterval(this.executeQueries.bind(this), 3e5);
     },
 
-    scrapResults: function(page) {
+    executeQueries: function() {
+      this.queries.forEach(function(query) {
+        $.get(query.url).success(this.scrapResults.bind(this, query));
+      }.bind(this));
+    },
+
+    scrapResults: function(query, page) {
       var articlesElements = $(page).find('.lbc');
       var results = [];
       articlesElements.each(function(index, el) {
@@ -74,12 +81,11 @@
 
         results.push(article);
       });
-      backgroundTask.saveResults(this.url, results);
+      this.saveResults(query.url, results);
     },
 
     saveResults: function(query, results) {
       this.results[query] = results;
-      this.saveResults();
       chrome.storage.local.set({ results: this.results });
     }
 

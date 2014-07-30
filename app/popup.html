@@ -16,6 +16,7 @@
       <ul>
         <li ng-click="seeItem(item)" ng-repeat="item in seenResults | limitTo: 5">
           <p>{{ item.title }}</p>
+          <p class="price"><strong>{{ item.price }}</strong></p>
           <p class="date"><small>{{ item.date }}</small></h2>
         </li>
       </ul>

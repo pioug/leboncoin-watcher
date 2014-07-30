@@ -34,14 +34,12 @@ header {
 header a {
   display: inline-block;
   padding: 1em;
+  text-transform: lowercase;
 }
 
 header a.active {
   background-color: #bf360c;
-}
-
-main ul {
-  display: inline-block;
+  transition: background-color ease-out .2s;
 }
 
 main li {
@@ -55,8 +53,8 @@ main li {
 }
 
 main li:hover {
-  box-shadow: 1px 1px 1px 1px #ffccbc;
-  transition: box-shadow ease-out .1s;
+  background-color: #ffccbc;
+  transition: background-color ease-out .2s;
 }
 
 small {

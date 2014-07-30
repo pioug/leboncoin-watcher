@@ -7,6 +7,9 @@
   "storage",
   "notifications"
   ],
+  "icons": {
+    "512": "/app/icon512.png"
+  },
   "options_page": "app/options.html",
   "background": {
     "scripts": [
@@ -17,7 +20,7 @@
     "persistent": true
   },
   "browser_action": {
-    "default_title": "Le chineur",
+    "default_icon": "app/icon32.png",
     "default_popup": "app/popup.html"
   }
 }
